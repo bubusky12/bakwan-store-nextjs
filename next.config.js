@@ -1,6 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
-
-module.exports = nextConfig
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: '/bakwan/:productId',
+        destination: '/BakwanDetail', // Sesuaikan dengan nama file halaman Anda
+      },
+    ];
+  },
+};
