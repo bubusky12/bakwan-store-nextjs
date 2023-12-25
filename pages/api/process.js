@@ -38,7 +38,8 @@ function decryptKey(merchant_ref) {
 }
 
 export default function handler(req, res) {
-  const { merchant_ref, total_amount } = req.body;
+  console.log(req.body)
+  const { merchant_ref, total_amount } = req.body.data;
 
   const { username } = decryptKey(merchant_ref);
 
