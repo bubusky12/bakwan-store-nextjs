@@ -41,13 +41,13 @@ function decryptKey(merchant_ref) {
 
 export default function handler(req, res) {
   console.log(req.body.merchant_ref)
-  const { merchant_ref, amount } = req.body;
+  const { merchant_ref, total_amount } = req.body;
 
   const { username } = decryptKey(merchant_ref);
 
   let command = ``
 
-  switch (amount) {
+  switch (total_amount) {
     case 10_000:
       command = `give ${username} minecraft:coal 10`;
       break;
