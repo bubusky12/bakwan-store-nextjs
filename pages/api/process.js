@@ -1,3 +1,5 @@
+import { decrypt } from "@/components/cryptos";
+
 async function sendServerCommand(serverUrl, apiKey, command) {
   const url = `${serverUrl}/v1/server/exec`;
   const headers = {
@@ -22,19 +24,38 @@ async function sendServerCommand(serverUrl, apiKey, command) {
 
 // Example usage
 const serverUrl = "http://194.233.75.221:4567"; // Replace with your server's URL
+
 const apiKey = "bogor123"; // Replace with your API key
 
+function decryptKey(merchant_ref) {
+  // return encrypt(`aga-${username}-${crypto.randomBytes(10).toString("hex")}`);
+
+  const [keyWord, username, _] = decrypt(merchant_ref);
+
+  if (keyWord != "aga") throw Error("Penyusup cuk");
+
+  return { username };
+}
+
 export default function handler(req, res) {
+  const { merchant_ref, total_amount } = req.body;
 
+  const { username } = decryptKey(merchant_ref);
+
+  let command = ``
+
+  switch (total_amount) {
+    case 10_000:
+      command = `give ${username} minecraft:coal 10`;
+      break;
   
+    default:
+      break;
+  }
 
-  const { username, payment_method } = req.body;
-
-  const command = `give ${username} minecraft:coal 10`
- 
   sendServerCommand(serverUrl, apiKey, command)
     .then((response) => console.log(response))
     .catch((error) => console.error(error));
 
-  res.status(200).json({ command : "ok" });
+  res.status(200).json({ command: "ok" });
 }
