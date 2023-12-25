@@ -29,7 +29,8 @@ const apiKey = "bogor123"; // Replace with your API key
 
 function decryptKey(merchant_ref) {
   // return encrypt(`aga-${username}-${crypto.randomBytes(10).toString("hex")}`);
-  console.log('key : ', decrypt(merchant_ref))
+  console.log('key : ', merchant_ref)
+  console.log('key decrypt : ', decrypt(merchant_ref))
   const [keyWord, username, _] = decrypt(merchant_ref);
 
   if (keyWord != "aga") throw Error("Penyusup cuk");
@@ -39,7 +40,7 @@ function decryptKey(merchant_ref) {
 
 export default function handler(req, res) {
   console.log(req.body.data.merchant_ref)
-  const { merchant_ref, total_amount } = req.body.data;
+  const { merchant_ref, total_amount } = req.body;
 
   const { username } = decryptKey(merchant_ref);
 
