@@ -40,25 +40,25 @@ function decryptKey(merchant_ref) {
 }
 
 export default function handler(req, res) {
-  // console.log(req.body.data.merchant_ref)
-  // const { merchant_ref, amount } = req.body.data;
+  console.log(req.body.merchant_ref)
+  const { merchant_ref, amount } = req.body;
 
-  // const { username } = decryptKey(merchant_ref);
+  const { username } = decryptKey(merchant_ref);
 
-  // let command = ``
+  let command = ``
 
-  // switch (amount) {
-  //   case 10_000:
-  //     command = `give ${username} minecraft:coal 10`;
-  //     break;
+  switch (amount) {
+    case 10_000:
+      command = `give ${username} minecraft:coal 10`;
+      break;
   
-  //   default:
-  //     break;
-  // }
+    default:
+      break;
+  }
 
-  // sendServerCommand(serverUrl, apiKey, command)
-  //   .then((response) => console.log(response))
-  //   .catch((error) => console.error(error));
+  sendServerCommand(serverUrl, apiKey, command)
+    .then((response) => console.log(response))
+    .catch((error) => console.error(error));
 
-  res.status(200).json({ command: "ok" });
+  res.status(200).json({ success: "true" });
 }
